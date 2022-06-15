@@ -13,12 +13,21 @@ const Searchbar = ({ handleSubmitSetQuery }) => {
   const handleSubmitSetText = evt => {
     evt.preventDefault();
     handleSubmitSetQuery(text);
+    cancelCourse();
+  };
+
+  const cancelCourse = () => {
+    document.getElementById('SearchForm').reset();
   };
 
   return (
     <div>
       <header className={s.Searchbar}>
-        <form onSubmit={handleSubmitSetText} className={s.SearchForm}>
+        <form
+          id="SearchForm"
+          onSubmit={handleSubmitSetText}
+          className={s.SearchForm}
+        >
           <button type="submit" className={s.SearchForm_button}>
             <span className={s.SearchForm_button_label}>Search</span>
           </button>
@@ -27,7 +36,7 @@ const Searchbar = ({ handleSubmitSetQuery }) => {
             className={s.SearchForm_input}
             onChange={onChange}
             type="text"
-            defaultValue={text}
+            defaultValue=""
             autoComplete="off"
             autoFocus
             placeholder="Search images and photos"
