@@ -31,7 +31,6 @@ const App = () => {
     getImages(query)
       .then(resData => {
         setImages(resData.data.hits);
-        console.log(resData.data.hits);
       })
       .finally(() => setIsLoading(false));
   };
@@ -39,8 +38,9 @@ const App = () => {
   const changePage = () => {
     getImages(query, page + 1).then(resData => {
       setPage(page + 1);
-      setImages([...resData.data.hits]);
+      setImages([...images, ...resData.data.hits]);
     });
+    console.log(page);
   };
 
   // useEffect(() => {
