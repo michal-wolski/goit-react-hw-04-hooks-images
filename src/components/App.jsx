@@ -11,11 +11,13 @@ const App = () => {
   const [images, setImages] = useState([]);
   const [query, setQuery] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modalImage, setmodalImage] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
   const openModal = modalImage => {
     setIsModalOpen(true);
-    // <modalImage />;
+    setmodalImage(modalImage);
+    console.log(modalImage);
     window.addEventListener('keydown', closeModal);
   };
 
@@ -40,7 +42,6 @@ const App = () => {
       setPage(page + 1);
       setImages([...images, ...resData.data.hits]);
     });
-    console.log(page);
   };
 
   // useEffect(() => {
@@ -53,7 +54,7 @@ const App = () => {
       {isLoading && <LoaderComponent />}
       <ImageGallery images={images} openModal={openModal} />
       {images.length > 0 && <Button changePage={changePage} />}
-      {isModalOpen && <Modal closeModal={closeModal} />}
+      {isModalOpen && <Modal modalImage={modalImage} closeModal={closeModal} />}
     </>
   );
 };
