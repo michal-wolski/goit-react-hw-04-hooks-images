@@ -25,12 +25,13 @@ const App = () => {
     window.removeEventListener('keydown', closeModal);
   };
 
-  const handleSubmit = query => {
+  const handleSubmitSetQuery = query => {
     setQuery(query);
     setIsLoading(true);
     getImages(query)
       .then(resData => {
-        setImages({ images: resData.data.hits });
+        setImages(resData.data.hits);
+        console.log(resData.data.hits);
       })
       .finally(() => setIsLoading(false));
   };
@@ -43,13 +44,12 @@ const App = () => {
   };
 
   // useEffect(() => {
-  //   handleSubmit(query, page);
-  // }),
-  //   [];
+  //   handleSubmitSetQuery('car', 1);
+  // }, []);
 
   return (
     <>
-      <Searchbar handleSubmit={handleSubmit} />
+      <Searchbar handleSubmitSetQuery={handleSubmitSetQuery} />
       {isLoading && <LoaderComponent />}
       <ImageGallery images={images} openModal={openModal} />
       {images.length > 0 && <Button changePage={changePage} />}

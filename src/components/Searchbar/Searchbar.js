@@ -1,25 +1,24 @@
-import React, { Component, useState } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import s from './Searchbar.module.css';
 
-const Searchbar = () => {
+const Searchbar = ({ handleSubmitSetQuery }) => {
   const [text, setText] = useState('');
 
   const onChange = evt => {
     const { value } = evt.target;
-    setText({ text: value });
+    setText(value);
   };
 
-  const handleSubmit = evt => {
+  const handleSubmitSetText = evt => {
     evt.preventDefault();
-    const { handleSubmit } = this.props;
-    handleSubmit(text);
+    handleSubmitSetQuery(text);
   };
 
   return (
     <div>
       <header className={s.Searchbar}>
-        <form onSubmit={handleSubmit} className={s.SearchForm}>
+        <form onSubmit={handleSubmitSetText} className={s.SearchForm}>
           <button type="submit" className={s.SearchForm_button}>
             <span className={s.SearchForm_button_label}>Search</span>
           </button>
@@ -83,5 +82,5 @@ const Searchbar = () => {
 export default Searchbar;
 
 Searchbar.propTypes = {
-  handleSubmit: PropTypes.func.isRequired,
+  handleSubmitSetQuery: PropTypes.func.isRequired,
 };
